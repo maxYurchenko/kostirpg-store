@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Product</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="composition" type="TextLine">
+      <label>Composition</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="price" type="Long">
+      <label>Current price</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="finalPrice" type="Long">
+      <label>Final price</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="type" type="ComboBox">
+      <label>Item type</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="ticket">Ticket</option>
+        <option value="clothes">Clothes</option>
+      </config>
+    </input>
+    <input name="mainImage" type="ImageSelector">
+      <label>Main image</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="swatch" type="ImageSelector">
+      <label>Swatch image</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="variations" type="ContentSelector">
+      <label>Variations</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allowContentType>product</allowContentType>
+      </config>
+    </input>
+    <input name="images" type="ImageSelector">
+      <label>Images</label>
+      <occurrences minimum="0" maximum="3"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="description" type="HtmlArea">
+      <label>Description</label>
+      <config>
+        <exclude>*</exclude>
+        <include>alignleft alignright | bold italic | bullist numlist | link unlink</include>
+      </config>
+    </input>
+    <input name="inventory" type="Long">
+      <label>Inventory</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <item-set name="sizes">
+      <label>Available sizes</label>
+      <items>
+        <input name="title" type="TextLine">
+          <label>Size</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="amount" type="Long">
+          <label>Amount</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="asize" type="TextLine">
+          <label>A size</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="bsize" type="TextLine">
+          <label>B size</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+      <occurrences minimum="0" maximum="0"/>
+    </item-set>
+    <input name="weight" type="Double">
+      <label>Weight</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="digital" type="CheckBox">
+      <label>Digital</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="preorder" type="CheckBox">
+      <label>Preorder</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="discontinued" type="CheckBox">
+      <label>Discontinued</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="showSizeGrid" type="CheckBox">
+      <label>Show size grid</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="theme" type="ContentSelector">
+      <label>Theme</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowContentType>filter</allowContentType>
+      </config>
+    </input>
+    <input name="ticketType" type="ComboBox">
+      <label>Ticket type</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="regularTicket2020">Regular 2020</option>
+        <option value="legendaryTicket2020">Legendary 2020</option>
+        <option value="regularTicket">Regular 2019</option>
+        <option value="legendaryTicket">Legendary 2019</option>
+        <option value="kostiConnectTurbo">KostiConnect Turbo</option>
+        <option value="kostiConnectOnline">KostiConnect online</option>
+      </config>
+    </input>
+    <input name="generateIds" type="Long">
+      <label>Ids amount</label>
+    </input>
+    <input name="hashtags" type="ContentSelector">
+      <label>Hashtags</label>
+      <occurrences minimum="0" maximum="5"/>
+      <config>
+        <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
+  </form>
+</content-type>

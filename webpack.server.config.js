@@ -1,17 +1,17 @@
-const path = require('path');
-const glob = require('glob');
-const R = require('ramda');
-const {ProvidePlugin} = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
+const path = require("path");
+const glob = require("glob");
+const R = require("ramda");
+const { ProvidePlugin } = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
 const {
   setEntriesForPath,
   addRule,
   addPlugin,
   prependExtensions
-} = require('./util/compose');
-const env = require('./util/env');
+} = require("./util/compose");
+const env = require("./util/env");
 
-const RESOURCES_PATH = 'src/main/resources';
+const RESOURCES_PATH = "src/main/resources";
 
 // ----------------------------------------------------------------------------
 // Base config
@@ -20,36 +20,21 @@ const RESOURCES_PATH = 'src/main/resources';
 const config = {
   context: path.join(__dirname, RESOURCES_PATH),
   entry: {},
-  externals: [
-    /^\/lib\/(.+|\$)$/i
-  ],
+  externals: [/^\/lib\/(.+|\$)$/i],
   output: {
-    path: path.join(__dirname, '/build/resources/main'),
-    filename: '[name].js',
-    libraryTarget: 'commonjs'
+    path: path.join(__dirname, "/build/resources/main"),
+    filename: "[name].js",
+    libraryTarget: "commonjs"
   },
   resolve: {
-    extensions: [],
+    extensions: []
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_console: false,
-          },
-          keep_classnames: true,
-          keep_fnames: true,
-        }
-      }),
-    ],
-    splitChunks: {
-      minSize: 30000,
-    },
+    minimize: false
   },
   mode: env.type,
   // Source maps are not usable in server scripts
-  devtool: false,
+  devtool: false
 };
 
 // ----------------------------------------------------------------------------
@@ -59,11 +44,14 @@ const config = {
 function listEntries(extensions, ignoreList) {
   const CLIENT_FILES = glob.sync(`${RESOURCES_PATH}/assets/**/*.${extensions}`);
   const IGNORED_FILES = R.pipe(
-    R.map(entry => path.join(RESOURCES_PATH, entry)),
+    R.map((entry) => path.join(RESOURCES_PATH, entry)),
     R.concat(CLIENT_FILES)
   )(ignoreList);
-  const SERVER_FILES = glob.sync(`${RESOURCES_PATH}/**/*.${extensions}`, { absolute: false, ignore: IGNORED_FILES });
-  return SERVER_FILES.map(entry => path.relative(RESOURCES_PATH, entry));
+  const SERVER_FILES = glob.sync(`${RESOURCES_PATH}/**/*.${extensions}`, {
+    absolute: false,
+    ignore: IGNORED_FILES
+  });
+  return SERVER_FILES.map((entry) => path.relative(RESOURCES_PATH, entry));
 }
 
 // TYPESCRIPT
@@ -71,25 +59,30 @@ function addTypeScriptSupport(cfg) {
   const rule = {
     test: /\.ts$/,
     exclude: /node_modules/,
-    loader: 'ts-loader',
+    loader: "ts-loader",
     options: {
-      configFile: 'src/main/resources/tsconfig.server.json',
+      configFile: "src/main/resources/tsconfig.server.json"
     }
   };
 
-  const entries = listEntries('ts', [
+  const entries = listEntries("ts", [
     // Add additional files to the ignore list.
     // The following path will be transformed to 'src/main/resources/types.ts:
-    'types.ts'
+    "types.ts"
   ]);
 
   return R.pipe(
     setEntriesForPath(entries),
     addRule(rule),
-    addPlugin(new ProvidePlugin({
-      'Object.assign': [path.join(__dirname, RESOURCES_PATH, 'polyfills'), 'assign']
-    })),
-    prependExtensions(['.ts', '.json'])
+    addPlugin(
+      new ProvidePlugin({
+        "Object.assign": [
+          path.join(__dirname, RESOURCES_PATH, "polyfills"),
+          "assign"
+        ]
+      })
+    ),
+    prependExtensions([".ts", ".json"])
   )(cfg);
 }
 
@@ -98,34 +91,34 @@ function addBabelSupport(cfg) {
   const rule = {
     test: /\.(es6?|js)$/,
     exclude: /node_modules/,
-    loader: 'babel-loader',
+    loader: "babel-loader",
     options: {
       babelrc: false,
       plugins: [],
       presets: [
         [
-          '@babel/preset-env',
+          "@babel/preset-env",
           {
             // Use custom Browserslist config
-            targets: 'node 0.10',
+            targets: "node 0.10",
             // Polyfills are not required in runtime
             useBuiltIns: false
-          },
-        ],
+          }
+        ]
       ]
     }
   };
 
-  const entries = listEntries('{js,es,es6}', [
+  const entries = listEntries("{js,es,es6}", [
     // Add additional files to the ignore list.
     // The following path will be transformed to 'src/main/resources/lib/observe/observe.es6':
-    'lib/observe/observe.es6'
+    "lib/observe/observe.es6"
   ]);
 
   return R.pipe(
     setEntriesForPath(entries),
     addRule(rule),
-    prependExtensions(['.js', '.es', '.es6', '.json'])
+    prependExtensions([".js", ".es", ".es6", ".json"])
   )(cfg);
 }
 
@@ -133,7 +126,4 @@ function addBabelSupport(cfg) {
 // Result config
 // ----------------------------------------------------------------------------
 
-module.exports = R.pipe(
-  addBabelSupport,
-  addTypeScriptSupport
-)(config);
+module.exports = R.pipe(addBabelSupport, addTypeScriptSupport)(config);
