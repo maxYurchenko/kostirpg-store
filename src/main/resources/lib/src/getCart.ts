@@ -99,7 +99,7 @@ function getCartsByUser(
   return carts;
 }
 
-function getCartByQr(qr: string): Cart | null {
+function getCartByQr(qr: number): Cart | null {
   let cartRepo = connectCartRepo();
   let result = cartRepo.query({
     start: 0,
@@ -121,7 +121,7 @@ function getCartByQr(qr: string): Cart | null {
     if (!itemIds) continue;
 
     for (let j = 0; j < itemIds.length; j++) {
-      if (itemIds[j] && itemIds[j].id == parseInt(qr)) {
+      if (itemIds[j] && itemIds[j].id == qr) {
         let product = contentLib.get<Product>({
           key: item._id
         });

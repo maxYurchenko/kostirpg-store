@@ -5,7 +5,7 @@ import { connectCartRepo } from "../helpers/repo";
 
 export { markTicketUsed };
 
-function markTicketUsed(qr: string) {
+function markTicketUsed(qr: number) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -35,7 +35,7 @@ function markTicketUsed(qr: string) {
       if (!item.itemsIds) continue;
 
       for (var j = 0; j < item.itemsIds.length; j++) {
-        if (item.itemsIds[j].id == parseInt(qr)) {
+        if (item.itemsIds[j].id == qr) {
           item.itemsIds[j].activated = true;
           node.items[i] = item;
           return node;
