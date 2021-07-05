@@ -94,7 +94,8 @@ function getCartsByUser(
   }
   let carts = [];
   for (var i = 0; i < result.hits.length; i++) {
-    carts.push(getCart(result.hits[i].id));
+    let tempCart = cartRepo.get(result.hits[i].id);
+    if (tempCart) carts.push(getCart(tempCart._id));
   }
   return carts;
 }
