@@ -6,6 +6,9 @@ plugins {
   id 'maven-publish'
 }
 
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
 app {
   name = "${appName}"
   displayName = "${appDisplayName}"
@@ -24,7 +27,6 @@ dependencies {
 }
 
 repositories {
-  mavenLocal()
   jcenter()
   xp.enonicRepo()
   maven {
@@ -68,21 +70,6 @@ task serverWebpack( type: NodeTask, dependsOn: npmInstall ) {
   script = file( 'node_modules/webpack-cli/bin/cli.js' )
 }
 
-processResources {
-  include '**/*'
-  exclude '**/.gitkeep'
-  exclude '**/tsconfig.*.json'
-  exclude '**/*.es'
-  exclude '**/*.es6'
-  exclude '**/*.ts'
-  exclude 'assets/js/**/*.js'
-  include 'assets/js/bundle.js'
-  exclude 'assets/styles/**/*.less'
-  exclude 'assets/styles/**/*.sass'
-  exclude 'assets/styles/**/*.scss'
-  includeEmptyDirs false
-}
-
 jar {
   exclude 'assets/styles/**/*.less'
   exclude 'assets/styles/**/*.sass'
@@ -104,8 +91,11 @@ def nodeEnvironment() {
 
 publishing {
   publications {
-    myLibrary(MavenPublication) {
+    mavenJava(MavenPublication) {
       from components.java
+      groupId group
+      artifactId projectName
+      version version
     }
   }
 }
