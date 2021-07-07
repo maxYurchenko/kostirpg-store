@@ -10,11 +10,8 @@ function calculateCartItems(
     return 0;
   }
   items = utils.data.forceArray(items);
-  if (!items) {
-    return 0;
-  }
-  var result = 0;
-  for (var i = 0; i < items.length; i++) {
+  let result = 0;
+  for (let i = 0; i < items.length; i++) {
     result += items[i].amount;
   }
   return result;

@@ -11,23 +11,23 @@ export { calculateCart };
 function calculateCart(cart: Cart): CartPrice {
   if (!cart || !cart.items) {
     return {
-      items: 0,
-      shipping: 0,
-      total: 0,
+      items: "0",
+      shipping: "0",
+      total: "0",
       currency: "UAH",
       discount: { discount: 0, codes: [] },
-      totalDiscount: 0
+      totalDiscount: "0"
     };
   }
   var items = utils.data.forceArray(cart.items);
   if (items == []) {
     return {
-      items: 0,
-      shipping: 0,
-      total: 0,
+      items: "0",
+      shipping: "0",
+      total: "0",
       currency: "UAH",
       discount: { discount: 0, codes: [] },
-      totalDiscount: 0
+      totalDiscount: "0"
     };
   }
   var result = 0;
@@ -44,11 +44,11 @@ function calculateCart(cart: Cart): CartPrice {
   }
   var discount = checkCartDiscount(cart, result);
   return {
-    items: result,
-    shipping: shipping,
+    items: result.toFixed(),
+    shipping: shipping.toFixed(),
     discount: discount,
-    totalDiscount: Math.max(result + shipping - discount.discount, 0),
-    total: result + shipping,
+    totalDiscount: Math.max(result + shipping - discount.discount, 0).toFixed(),
+    total: (result + shipping).toFixed(),
     currency: "UAH"
   };
 }

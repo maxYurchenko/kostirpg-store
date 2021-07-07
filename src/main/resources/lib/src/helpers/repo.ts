@@ -16,7 +16,7 @@ function getNextId(): number {
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query: ""
+    query: "status IN ('pending', 'created', 'failed', 'paid')"
   });
   return result.total + 1 + new Date().getUTCMilliseconds();
 }

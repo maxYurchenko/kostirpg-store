@@ -55,11 +55,11 @@ interface Code {
 }
 
 export interface CartPrice {
-  items: number;
-  shipping: number;
+  items: string;
+  shipping: string;
   discount: CartDiscount;
-  totalDiscount: number;
-  total: number;
+  totalDiscount: string;
+  total: string;
   currency: string;
 }
 

@@ -24,7 +24,9 @@ function setUserDetails(cartId: string, params: CartUpdateRequest) {
     node.cartId = params.cartId ? params.cartId : node.cartId;
     node.step = params.step ? params.step : node.step;
     node.status = params.status ? params.status : node.status;
-    node.userId = node.userId ? node.userId : getNextId();
+    if (node.status || params.status) {
+      node.userId = node.userId ? node.userId : getNextId();
+    }
     node.index = params.index ? params.index : node.index;
     node.comment = params.comment ? params.comment : node.comment;
     node.paymentMethod = params.paymentMethod

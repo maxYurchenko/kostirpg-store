@@ -14,7 +14,13 @@ function modify(params: modifyCartRequest) {
     cart = getCart();
   }
   const cartRepo = connectCartRepo();
-  var item = contentLib.get<Product>({ key: params.itemId });
+  let item = contentLib.get<Product>({ key: params.itemId });
+  let amount: number;
+  if (params.amount) {
+    amount = parseInt(params.amount);
+  } else {
+    amount = 1;
+  }
   if (item && item.data && item.data.generateIds) {
     var generateIds = item.data.generateIds;
   }
@@ -36,14 +42,14 @@ function modify(params: modifyCartRequest) {
           node.items[i].itemSize == params.size
         ) {
           if (params.force) {
-            node.items[i].amount = params.amount;
+            node.items[i].amount = amount;
           } else {
-            node.items[i].amount = node.items[i].amount + params.amount;
+            node.items[i].amount = node.items[i].amount + amount;
           }
           node.items[i].generateIds = generateIds
             ? generateIds
             : node.items[i].generateIds;
-          if (params.amount < 1) {
+          if (amount < 1) {
             delete node.items[i];
           }
           return node;
@@ -51,7 +57,7 @@ function modify(params: modifyCartRequest) {
       }
       node.items.push({
         id: params.itemId,
-        amount: params.amount,
+        amount: amount,
         itemSize: params.size,
         generateIds: generateIds ? generateIds : undefined
       });
@@ -60,7 +66,7 @@ function modify(params: modifyCartRequest) {
       node.items = [
         {
           id: params.itemId,
-          amount: params.amount,
+          amount: amount,
           itemSize: params.size,
           generateIds: generateIds ? generateIds : undefined
         }
@@ -78,7 +84,7 @@ function validateCartStatusAvailableForModify(cart: Cart) {
 interface modifyCartRequest {
   cartId: string;
   itemId: string;
-  amount: number;
+  amount: string;
   size?: string;
   force?: boolean;
   adminUser: boolean;

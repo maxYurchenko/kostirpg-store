@@ -20,6 +20,7 @@ import { getShippingPrice } from "./src/calculations/shipping";
 import { fixCartDate, fixCartPrice, fixItemIds } from "./src/misc/fixes";
 import { getLiqpayPendingCarts } from "./src/misc/liqpay";
 import { getNextId, getCartUtils } from "./src/helpers/repo";
+import { clearOldCarts } from "./src/modifications/clearOldCarts";
 
 exports.addPromo = addPromo;
 exports.removePromo = removePromo;
@@ -47,3 +48,4 @@ exports.fixItemIds = fixItemIds;
 exports.getNextId = getNextId;
 exports.getCartUtils = getCartUtils;
 exports.getLiqpayPendingCarts = getLiqpayPendingCarts;
+exports.clearOldCarts = clearOldCarts;
