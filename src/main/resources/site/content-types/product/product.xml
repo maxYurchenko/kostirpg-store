@@ -21,6 +21,7 @@
       <config>
         <option value="ticket">Ticket</option>
         <option value="clothes">Clothes</option>
+        <option value="poster">Poster</option>
       </config>
     </input>
     <input name="mainImage" type="ImageSelector">

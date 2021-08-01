@@ -18,7 +18,7 @@ export interface Product {
   /**
    * Item type
    */
-  type: "ticket" | "clothes";
+  type: "ticket" | "clothes" | "poster";
 
   /**
    * Main image
