@@ -14,7 +14,7 @@ export interface Cart extends RepoNode {
   ik_id?: string;
   shipping?: string;
   status?: CART_STATES;
-  userId?: number;
+  userId?: number | string;
   shippingPrice?: string;
   price?: CartPrice;
   transactionPrice?: CartPrice;

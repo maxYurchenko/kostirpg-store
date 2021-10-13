@@ -40,6 +40,9 @@ function getCart(cartId?: string) {
     cart.price = calculateCart(cart);
   }
   cart.stock = checkCartStock(cart.items);
+  if (cart.userId && typeof cart.userId === "number") {
+    cart.userId = cart.userId.toFixed();
+  }
   return cart;
 }
 
