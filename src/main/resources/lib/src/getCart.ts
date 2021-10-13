@@ -181,7 +181,8 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
     query += " and paymentMethod = '" + params.paymentMethod + "'";
   }
   if (params.userId) {
-    query += " and userId = '" + params.userId + "'";
+    query +=
+      " and (userId='" + params.userId + "' or userId=" + params.userId + ")";
   }
   if (params.statistics) {
     query +=

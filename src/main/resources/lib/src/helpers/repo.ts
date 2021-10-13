@@ -13,12 +13,13 @@ function connectCartRepo() {
 
 function getNextId(): number {
   var cartRepo = connectCartRepo();
+  let date = new Date();
   var result = cartRepo.query({
     start: 0,
     count: 1,
     query: "status IN ('pending', 'created', 'failed', 'paid')"
   });
-  return result.total + 1 + new Date().getUTCMilliseconds();
+  return result.total + 1 + date.getUTCMilliseconds();
 }
 
 function getCartUtils(): CartUtils {
