@@ -19,7 +19,8 @@ function getNextId(): number {
     count: 1,
     query: "status IN ('pending', 'created', 'failed', 'paid')"
   });
-  return result.total + 1 + date.getUTCMilliseconds();
+  let id: string = result.total + "1" + date.getUTCMilliseconds();
+  return parseInt(id);
 }
 
 function getCartUtils(): CartUtils {
