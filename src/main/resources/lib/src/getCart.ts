@@ -67,7 +67,7 @@ function getCartByUserId(id: string): Array<Cart> {
   const cartRepo = connectCartRepo();
   let result = [];
   let cart = cartRepo.query({
-    query: "userId = '" + id + "'",
+    query: "userId='" + id + "' or userId=" + id,
     sort: "_ts desc"
   });
   for (var i = 0; i < cart.hits.length; i++) {
@@ -161,7 +161,12 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
       params.search +
       "\"', 'OR') or ngram('_allText', '\"" +
       params.search +
-      "\"', 'OR'))";
+      "\"', 'OR')" +
+      " or (userId='" +
+      params.search +
+      "' or userId=" +
+      params.search +
+      "))";
     if (parseInt(params.search) !== NaN && parseInt(params.search)) {
       query += " OR items.itemsIds.id=" + params.search;
     }
@@ -188,6 +193,7 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
     query +=
       " and email NOT IN ('maxskywalker94@gmail.com', 'demura.vi@gmail.com', 'vecherniy.dnd@gmail.com', 'yarynaholod@gmail.com', 'y.holod@astoundcommerce.com')";
   }
+  log.info(query);
   params.page = params.page ? params.page : 1;
   var carts = cartRepo.query({
     start: (params.page - 1) * 10,
