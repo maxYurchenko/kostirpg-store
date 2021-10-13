@@ -80,7 +80,7 @@ interface CartUpdateRequest {
   cartId?: string;
   step?: string;
   status?: CART_STATES;
-  userId?: number;
+  userId?: number | string;
   index?: string;
   comment?: string;
   paymentMethod?: string;
