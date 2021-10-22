@@ -161,12 +161,13 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
       params.search +
       "\"', 'OR') or ngram('_allText', '\"" +
       params.search +
-      "\"', 'OR')" +
-      " or (userId='" +
-      params.search +
-      "' or userId=" +
-      params.search +
-      "))";
+      "\"', 'OR')";
+    if (isNaN(parseInt("max"))) {
+      query +=
+        " or (userId='" + params.search + "' or userId=" + params.search + "))";
+    } else {
+      query += " or (userId='" + params.search + "'))";
+    }
     if (parseInt(params.search) !== NaN && parseInt(params.search)) {
       query += " OR items.itemsIds.id=" + params.search;
     }
