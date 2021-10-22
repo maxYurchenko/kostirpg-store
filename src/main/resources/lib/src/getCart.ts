@@ -186,8 +186,12 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
     query += " and paymentMethod = '" + params.paymentMethod + "'";
   }
   if (params.userId) {
-    query +=
-      " and (userId='" + params.userId + "' or userId=" + params.userId + ")";
+    if (isNaN(parseInt("max"))) {
+      query +=
+        " and (userId='" + params.userId + "' or userId=" + params.userId + ")";
+    } else {
+      query += " and (userId='" + params.userId + "')";
+    }
   }
   if (params.statistics) {
     query +=
