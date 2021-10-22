@@ -162,11 +162,11 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
       "\"', 'OR') or ngram('_allText', '\"" +
       params.search +
       "\"', 'OR')";
-    if (isNaN(parseInt("max"))) {
+    if (isNaN(parseInt(query))) {
+      query += " or (userId='" + params.search + "'))";
+    } else {
       query +=
         " or (userId='" + params.search + "' or userId=" + params.search + "))";
-    } else {
-      query += " or (userId='" + params.search + "'))";
     }
     if (parseInt(params.search) !== NaN && parseInt(params.search)) {
       query += " OR items.itemsIds.id=" + params.search;
@@ -187,11 +187,11 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
     query += " and paymentMethod = '" + params.paymentMethod + "'";
   }
   if (params.userId) {
-    if (isNaN(parseInt("max"))) {
+    if (isNaN(parseInt(query))) {
+      query += " and (userId='" + params.userId + "')";
+    } else {
       query +=
         " and (userId='" + params.userId + "' or userId=" + params.userId + ")";
-    } else {
-      query += " and (userId='" + params.userId + "')";
     }
   }
   if (params.statistics) {
