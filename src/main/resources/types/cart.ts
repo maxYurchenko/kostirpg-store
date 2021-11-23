@@ -47,6 +47,7 @@ export interface CartDiscount {
     shipping: number;
     products: number;
     shippingProducts: number;
+    total: number;
   };
   codes?: Array<Code>;
 }

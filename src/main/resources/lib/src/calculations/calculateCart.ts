@@ -19,7 +19,8 @@ function calculateCart(cart: Cart): CartPrice {
         discount: {
           shipping: 0,
           products: 0,
-          shippingProducts: 0
+          shippingProducts: 0,
+          total: 0
         },
         codes: []
       },
@@ -37,7 +38,8 @@ function calculateCart(cart: Cart): CartPrice {
         discount: {
           shipping: 0,
           products: 0,
-          shippingProducts: 0
+          shippingProducts: 0,
+          total: 0
         },
         codes: []
       },
@@ -62,7 +64,7 @@ function calculateCart(cart: Cart): CartPrice {
     shipping: shipping.toFixed(),
     discount: discount,
     totalDiscount: Math.max(
-      Math.max((result - discount.discount.products, 0)) +
+      Math.max(result - discount.discount.products, 0) +
         Math.max(shipping - discount.discount.shipping, 0),
       0
     ).toFixed(),

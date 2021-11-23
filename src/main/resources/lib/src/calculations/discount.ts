@@ -7,7 +7,8 @@ function checkCartDiscount(cart: Cart, itemsTotal: number): CartDiscount {
   let discount = {
     shipping: 0,
     products: 0,
-    shippingProducts: 0
+    shippingProducts: 0,
+    total: 0
   };
   if (!cart.promos) {
     return {
@@ -31,6 +32,7 @@ function checkCartDiscount(cart: Cart, itemsTotal: number): CartDiscount {
     } else {
       discount.products += codeDiscount;
     }
+    discount.total += codeDiscount;
     cartCodes.push({
       displayName: promos[i].displayName,
       type: promos[i].data.type,
