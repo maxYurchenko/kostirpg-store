@@ -33,7 +33,7 @@ function getPromoByCode(code: string): Content<Promo> | null {
     query: query
   });
   if (result.hits[0] && isPromoValid(result.hits[0], code)) {
-    result.data.currentCode = code;
+    result.hits[0].data.currentCode = code;
     return result.hits[0];
   }
   return null;
