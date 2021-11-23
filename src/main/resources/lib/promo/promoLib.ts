@@ -6,7 +6,7 @@ const contentLib = __non_webpack_require__("/lib/xp/content");
 
 export { getPromosArray };
 
-function getPromosArray(codes: string[]): Array<Content<Promo>> {
+function getPromosArray(codes: string[]) {
   var result = [];
   codes = utils.data.forceArray(codes);
   for (var i = 0; i < codes.length; i++) {
@@ -27,12 +27,13 @@ function getPromoByCode(code: string): Content<Promo> | null {
     " OR (data.codeType._selected = 'unique' AND data.codeType.unique.unique.code = '" +
     code +
     "')";
-  var result = contentLib.query<Promo>({
+  var result: any = contentLib.query({
     start: 0,
     count: 1,
     query: query
   });
   if (result.hits[0] && isPromoValid(result.hits[0], code)) {
+    result.data.currentCode = code;
     return result.hits[0];
   }
   return null;

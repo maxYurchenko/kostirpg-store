@@ -1,33 +1,45 @@
-import { Cart, CartDiscount } from "../../../types/cart";
+import { Cart, CartDiscount, Code } from "../../../types/cart";
 import { getPromosArray } from "../../promo/promoLib";
 
 export { checkCartDiscount };
 
 function checkCartDiscount(cart: Cart, itemsTotal: number): CartDiscount {
+  let discount = {
+    shipping: 0,
+    products: 0,
+    shippingProducts: 0
+  };
   if (!cart.promos) {
     return {
-      discount: 0
+      discount: discount
     };
   }
-  let discount = 0;
-  let promos = getPromosArray(cart.promos);
-  let cartCodes = [];
+  let promos: any = getPromosArray(cart.promos);
+  let cartCodes: Array<Code> = [];
   for (let i = 0; i < promos.length; i++) {
     if (!promos[i]) {
       continue;
     }
+    let codeDiscount = 0;
     if (promos[i].data.type == "percent") {
-      discount += itemsTotal * (promos[i].data.discount / 100);
+      codeDiscount += itemsTotal * (promos[i].data.discount / 100);
     } else {
-      discount += promos[i].data.discount;
+      codeDiscount += promos[i].data.discount;
+    }
+    if (promos[i].data.applyTo === "shipping") {
+      discount.shipping += codeDiscount;
+    } else {
+      discount.products += codeDiscount;
     }
     cartCodes.push({
       displayName: promos[i].displayName,
       type: promos[i].data.type,
-      discount: promos[i].data.discount
+      discount: promos[i].data.discount,
+      code: promos[i].data.currentCode
     });
   }
   return {
-    discount: discount
+    discount: discount,
+    codes: cartCodes
   };
 }

@@ -43,11 +43,15 @@ export interface Cart extends RepoNode {
 }
 
 export interface CartDiscount {
-  discount: number;
+  discount: {
+    shipping: number;
+    products: number;
+    shippingProducts: number;
+  };
   codes?: Array<Code>;
 }
 
-interface Code {
+export interface Code {
   displayName: string;
   type: string;
   discount: number;

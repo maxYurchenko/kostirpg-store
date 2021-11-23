@@ -52,5 +52,13 @@
         <option value="value">Value</option>
       </config>
     </input>
+    <input name="applyTo" type="ComboBox">
+      <label>Apply to</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="products">Products</option>
+        <option value="shipping">Shipping</option>
+      </config>
+    </input>
   </form>
 </content-type>

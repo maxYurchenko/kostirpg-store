@@ -61,4 +61,9 @@ export interface Promo {
    * Type
    */
   type: "percent" | "value";
+
+  /**
+   * Apply to
+   */
+  applyTo?: "products" | "shipping";
 }

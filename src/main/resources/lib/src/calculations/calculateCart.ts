@@ -15,7 +15,14 @@ function calculateCart(cart: Cart): CartPrice {
       shipping: "0",
       total: "0",
       currency: "UAH",
-      discount: { discount: 0, codes: [] },
+      discount: {
+        discount: {
+          shipping: 0,
+          products: 0,
+          shippingProducts: 0
+        },
+        codes: []
+      },
       totalDiscount: "0"
     };
   }
@@ -26,7 +33,14 @@ function calculateCart(cart: Cart): CartPrice {
       shipping: "0",
       total: "0",
       currency: "UAH",
-      discount: { discount: 0, codes: [] },
+      discount: {
+        discount: {
+          shipping: 0,
+          products: 0,
+          shippingProducts: 0
+        },
+        codes: []
+      },
       totalDiscount: "0"
     };
   }
@@ -47,7 +61,11 @@ function calculateCart(cart: Cart): CartPrice {
     items: result.toFixed(),
     shipping: shipping.toFixed(),
     discount: discount,
-    totalDiscount: Math.max(result + shipping - discount.discount, 0).toFixed(),
+    totalDiscount: Math.max(
+      Math.max((result - discount.discount.products, 0)) +
+        Math.max(shipping - discount.discount.shipping, 0),
+      0
+    ).toFixed(),
     total: (result + shipping).toFixed(),
     currency: "UAH"
   };
