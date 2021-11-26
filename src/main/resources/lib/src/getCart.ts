@@ -162,13 +162,13 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
       "\"', 'OR') or ngram('_allText', '\"" +
       params.search +
       "\"', 'OR')";
-    if (isNaN(parseInt(query))) {
+    if (isNaN(parseFloat(params.search))) {
       query += " or (userId='" + params.search + "'))";
     } else {
       query +=
         " or (userId='" + params.search + "' or userId=" + params.search + "))";
     }
-    if (parseInt(params.search) !== NaN && parseInt(params.search)) {
+    if (parseFloat(params.search) !== NaN && parseFloat(params.search)) {
       query += " OR items.itemsIds.id=" + params.search;
     }
   }
@@ -187,7 +187,7 @@ function getCreatedCarts(params: getCreatedCartsRequest) {
     query += " and paymentMethod = '" + params.paymentMethod + "'";
   }
   if (params.userId) {
-    if (isNaN(parseInt(query))) {
+    if (isNaN(parseFloat(params.userId))) {
       query += " and (userId='" + params.userId + "')";
     } else {
       query +=
