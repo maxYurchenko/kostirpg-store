@@ -9,6 +9,7 @@ function getShippingPrice(cart: Cart): number {
   var site: any = portal.getSiteConfig();
   if (!site || !site.shipping) return 0;
   var shipping: any = contentLib.get({ key: site.shipping });
+  if (!shipping) return 0;
   for (var i = 0; i < shipping.data.shipping.length; i++) {
     if (shipping.data.shipping[i].country.indexOf(cart.country) != -1) {
       var shippingMethods = utils.data.forceArray(
