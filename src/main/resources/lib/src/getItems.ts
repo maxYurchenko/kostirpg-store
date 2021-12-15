@@ -75,6 +75,7 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
           item._id,
           items[i].itemSize
         ),
+        itemsIds: items[i].itemsIds,
         itemsIdsProcessed: itemIds
       });
     }
