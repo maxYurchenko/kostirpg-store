@@ -27,7 +27,7 @@ export interface Cart extends RepoNode {
   stock: boolean;
   currentTicketType?: string;
   qrActivated: boolean;
-  currentFriendlyId: number;
+  currentFriendlyId: string;
   legendary: boolean;
   cartId: string;
   index: string;
@@ -89,6 +89,13 @@ export interface CartDates {
   transactionDate: string;
   transactionTime: string;
 }
+
+export interface CartItemIdProcessed {
+  id?: string;
+  activated?: boolean;
+  friendlyId: string;
+}
+
 export interface CartItemProcessed extends CartItem {
   _id: string;
   displayName: string;
@@ -102,6 +109,8 @@ export interface CartItemProcessed extends CartItem {
   itemSizeStock: boolean;
   imageCart: any;
   imageSummary: any;
+  amountString: string;
+  itemsIdsProcessed?: Array<CartItemIdProcessed>;
 }
 
 export interface CartUtils extends RepoNode {

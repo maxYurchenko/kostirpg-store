@@ -130,7 +130,7 @@ function getCartByQr(qr: number): Cart | null {
           key: item._id
         });
         cart.qrActivated = itemIds[j].activated ? true : false;
-        cart.currentFriendlyId = itemIds[j].friendlyId;
+        cart.currentFriendlyId = itemIds[j].friendlyId.toFixed();
         if (product) {
           cart.legendary = product.data.ticketType === "kostiConnectTurbo";
           cart.currentTicketType = product.data.ticketType;

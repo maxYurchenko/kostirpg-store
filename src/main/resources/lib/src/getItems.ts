@@ -3,7 +3,8 @@ import {
   Cart,
   CartItem,
   CartItemProcessed,
-  CartItemId
+  CartItemId,
+  CartItemIdProcessed
 } from "../../types/cart";
 import { getImage } from "./helpers/image";
 const utils = __non_webpack_require__("/lib/util");
@@ -36,6 +37,14 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
       }
       items[i].itemsIds = item;
     }
+    let itemIds: CartItemIdProcessed[] = utils.data.forceArray(
+      items[i].itemsIds
+    );
+    for (let j = 0; j < itemIds.length; j++) {
+      if (itemIds[i].id) itemIds[i].id = Number(itemIds[i].id).toFixed();
+      if (itemIds[i].friendlyId)
+        itemIds[i].friendlyId = Number(itemIds[i].id).toFixed();
+    }
     if (item && item.data) {
       result.push({
         id: item._id,
@@ -49,6 +58,7 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: items[i].amount,
+        amountString: items[i].amount.toFixed(),
         itemSize: items[i].itemSize,
         digital: item.data.digital ? true : false,
         ticketType: item.data.ticketType,
@@ -62,7 +72,7 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
           item._id,
           items[i].itemSize
         ),
-        itemsIds: utils.data.forceArray(items[i].itemsIds)
+        itemsIdsProcessed: itemIds
       });
     }
   }
