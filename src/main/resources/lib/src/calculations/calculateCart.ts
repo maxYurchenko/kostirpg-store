@@ -8,43 +8,30 @@ import { getShippingPrice } from "./shipping";
 
 export { calculateCart };
 
+let blankPrice = {
+  items: "0",
+  shipping: "0",
+  total: "0",
+  currency: "UAH",
+  discount: {
+    discount: {
+      shipping: 0,
+      products: 0,
+      shippingProducts: 0,
+      total: 0
+    },
+    codes: []
+  },
+  totalDiscount: "0"
+};
+
 function calculateCart(cart: Cart): CartPrice {
   if (!cart || !cart.items) {
-    return {
-      items: "0",
-      shipping: "0",
-      total: "0",
-      currency: "UAH",
-      discount: {
-        discount: {
-          shipping: 0,
-          products: 0,
-          shippingProducts: 0,
-          total: 0
-        },
-        codes: []
-      },
-      totalDiscount: "0"
-    };
+    return blankPrice;
   }
   var items = utils.data.forceArray(cart.items);
   if (items == []) {
-    return {
-      items: "0",
-      shipping: "0",
-      total: "0",
-      currency: "UAH",
-      discount: {
-        discount: {
-          shipping: 0,
-          products: 0,
-          shippingProducts: 0,
-          total: 0
-        },
-        codes: []
-      },
-      totalDiscount: "0"
-    };
+    return blankPrice;
   }
   var result = 0;
   for (var i = 0; i < items.length; i++) {

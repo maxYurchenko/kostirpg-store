@@ -41,6 +41,7 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
       items[i].itemsIds
     );
     for (let j = 0; j < itemIds.length; j++) {
+      if (!itemIds[i]) continue;
       if (itemIds[i].id) itemIds[i].id = Number(itemIds[i].id).toFixed();
       if (itemIds[i].friendlyId)
         itemIds[i].friendlyId = Number(itemIds[i].id).toFixed();
@@ -58,7 +59,7 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: items[i].amount,
-        amountString: items[i].amount.toFixed(),
+        amountString: Number(items[i].amount).toFixed(),
         itemSize: items[i].itemSize,
         digital: item.data.digital ? true : false,
         ticketType: item.data.ticketType,

@@ -9,6 +9,7 @@ import { getCartDates } from "./misc/dates";
 import { BasicFilters, BooleanFilter, Content } from "enonic-types/content";
 import * as contextLib from "./helpers/contextLib";
 import { Product } from "../../site/content-types/product/product";
+import { fixDiscount } from "./calculations/discount";
 
 const contentLib = __non_webpack_require__("/lib/xp/content");
 const utils = __non_webpack_require__("/lib/util");
@@ -38,6 +39,8 @@ function getCart(cartId?: string) {
   cart.dates = getCartDates(cart);
   if (!cart.price) {
     cart.price = calculateCart(cart);
+  } else {
+    cart.price.discount = fixDiscount(cart);
   }
   cart.stock = checkCartStock(cart.items);
   if (cart.userId && typeof cart.userId === "number") {

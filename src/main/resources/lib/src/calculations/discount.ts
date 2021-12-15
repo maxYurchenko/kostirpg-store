@@ -1,7 +1,7 @@
 import { Cart, CartDiscount, Code } from "../../../types/cart";
 import { getPromosArray } from "../../promo/promoLib";
 
-export { checkCartDiscount };
+export { checkCartDiscount, fixDiscount };
 
 function checkCartDiscount(cart: Cart, itemsTotal: number): CartDiscount {
   let discount = {
@@ -44,4 +44,16 @@ function checkCartDiscount(cart: Cart, itemsTotal: number): CartDiscount {
     discount: discount,
     codes: cartCodes
   };
+}
+
+function fixDiscount(cart: any) {
+  if (!isNaN(cart.price?.discount.discount)) {
+    cart.price.discount.discount = {
+      shipping: 0,
+      products: 0,
+      shippingProducts: 0,
+      total: cart.price.discount.discount
+    };
+  }
+  return cart.price.discount;
 }
