@@ -37,16 +37,12 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
       }
       items[i].itemsIds = item;
     }
-    let itemIds: CartItemIdProcessed[] | undefined = items[i].itemsIds
-      ? utils.data.forceArray(items[i].itemsIds)
-      : undefined;
-    if (itemIds) {
-      for (let j = 0; j < itemIds.length; j++) {
-        if (!itemIds[i]) continue;
-        if (itemIds[i].id) itemIds[i].id = Number(itemIds[i].id).toFixed();
-        if (itemIds[i].friendlyId)
-          itemIds[i].friendlyId = Number(itemIds[i].id).toFixed();
-      }
+    let itemsIdsProcessed: any = items[i].itemsIds;
+    if (itemsIdsProcessed) {
+      itemsIdsProcessed.forEach((id: any) => {
+        id.friendlyId = Number(id.friendlyId).toFixed();
+        id.id = Number(id.id).toFixed();
+      });
     }
     if (item && item.data) {
       result.push({
@@ -76,7 +72,7 @@ function getCartItems(cart: Cart): Array<CartItemProcessed> {
           items[i].itemSize
         ),
         itemsIds: items[i].itemsIds,
-        itemsIdsProcessed: itemIds
+        itemsIdsProcessed: itemsIdsProcessed
       });
     }
   }
