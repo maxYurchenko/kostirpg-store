@@ -1,4 +1,6 @@
+import { Content } from "enonic-types/content";
 import { RepoNode } from "enonic-types/node";
+import { Product } from "../site/content-types/product/product";
 
 export interface Cart extends RepoNode {
   createdTime: string;
@@ -26,6 +28,7 @@ export interface Cart extends RepoNode {
   promos: Array<string>;
   stock: boolean;
   currentTicketType?: string;
+  qrProduct?: Content<Product>;
   qrActivated: boolean;
   currentFriendlyId: string;
   legendary: boolean;
