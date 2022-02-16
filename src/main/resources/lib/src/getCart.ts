@@ -138,6 +138,7 @@ function getCartByQr(qr: number): Cart | null {
           cart.legendary = product.data.ticketType === "kostiConnectTurbo";
           cart.currentTicketType = product.data.ticketType;
           cart.qrProduct = product;
+          cart.qr = qr;
         }
       }
     }

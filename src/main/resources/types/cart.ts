@@ -43,6 +43,7 @@ export interface Cart extends RepoNode {
   trackNum: string;
   ik_inv_id: string;
   checkoutRules: boolean | string;
+  qr?: number;
 }
 
 export interface CartDiscount {
